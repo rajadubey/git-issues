@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import './App.css'
+import axios from "axios";
+import Navbar from "./components/navbar";
+import Home from "./components/home";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      organization: "facebook",
+      repository: "react",
+      data: "",
+      pageUrl: "",
+      pages: "",
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        `https://api.github.com/repos/${this.state.organization}/${this.state.repository}/issues`)
+      .then((response) => {
+        this.setState({
+          data: response.data,
+        });
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+    console.log(this.state.data);
+  }
+  render() {
+    return (
+      <>
+        <Switch>
+          <Route path='/issues' render={(props)=><Home data={this.state} {...props}/>}/>
+        </Switch>
+      </>
+    );
+  }
 }
-
-export default App;
