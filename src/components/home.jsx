@@ -1,16 +1,14 @@
 import React from "react";
-import Loader from "react-loader-spinner";
 import IssueList from "./issueList";
-import IssueListItem from "./issueListItem";
 import LoaderArea from "./loader";
 import Navbar from "./navbar";
 
 export default function Home(props) {
-  const issues = props.data.data;
+  const issues = props.data.issues;
   return (
     <div className="main-container">
       <div className="navbar-container">
-        <Navbar />
+        <Navbar data={props.data} fetchData={props.fetchData} handler={props.handleUser}/>
       </div>
       <div className="container">
         <div className="container-header">
@@ -28,7 +26,7 @@ export default function Home(props) {
           </div>
         </div>
         <div className="container-body">
-            {issues? <IssueList list={props.data.data} />: <LoaderArea />}
+            {issues? <IssueList list={issues} />: <LoaderArea />}
         </div>
       </div>
     </div>
