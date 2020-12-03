@@ -16,7 +16,7 @@ export default function Home(props) {
             <span>Open</span>
             <span>Closed</span>
           </div>
-          <div class="issue-filters">
+          <div className="issue-filters">
             <span>Author</span>
             <span>Label</span>
             <span>Projects</span>
@@ -26,7 +26,7 @@ export default function Home(props) {
           </div>
         </div>
         <div className="container-body">
-            {issues? <IssueList list={issues} />: <LoaderArea />}
+            {issues? <IssueList list={issues} data={props.data} />: <LoaderArea />}
         </div>
       </div>
     </div>
